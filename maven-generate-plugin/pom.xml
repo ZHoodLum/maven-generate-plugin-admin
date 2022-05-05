@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!--插件版本信息-->
+  <groupId>com.mojo</groupId>
+  <artifactId>maven-generate-plugin</artifactId>
+  <version>1.0.0-RELEASE</version>
+
+  <!--插件包方式-->
+  <packaging>maven-plugin</packaging>
+
+  <name>maven-generate-plugin</name>
+  <url>http://maven.apache.org</url>
+
+  <dependencies>
+    <!-- Mojo 的接口与抽象类 https://mvnrepository.com/artifact/org.apache.maven/maven-plugin-api -->
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>3.6.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>3.6.3</version>
+    </dependency>
+    <!--使用 @Mojo 注解 https://mvnrepository.com/artifact/org.apache.maven.plugin-tools/maven-plugin-annotations -->
+    <dependency>
+      <groupId>org.apache.maven.plugin-tools</groupId>
+      <artifactId>maven-plugin-annotations</artifactId>
+      <version>3.6.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.8.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-spring-web</artifactId>
+      <version>2.9.2</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!--导出excel-->
+    <!-- 使用 xls 格式 https://mvnrepository.com/artifact/org.apache.poi/poi -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+    <!-- 使用 xlsx 格式 https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+    <!-- alibaba https://mvnrepository.com/artifact/com.alibaba/easyexcel -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>easyexcel</artifactId>
+      <version>3.0.5</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.6.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <!-- 编码和编译和JDK版本 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+
+<!--    <plugins>-->
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-compiler-plugin</artifactId>-->
+<!--        <configuration>-->
+<!--          <source>7</source>-->
+<!--          <target>7</target>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+<!--      <plugin>-->
+<!--        <groupId>com.github.kongchen</groupId>-->
+<!--        <artifactId>swagger-maven-plugin</artifactId>-->
+<!--        <version>3.1.0</version>-->
+<!--        <configuration>-->
+<!--          <apiSources>-->
+<!--            <apiSource>-->
+<!--              &lt;!&ndash; 支持springMVC &ndash;&gt;-->
+<!--              <springmvc>true</springmvc>-->
+<!--              &lt;!&ndash; 你的web项目Controller包名 &ndash;&gt;-->
+<!--              <locations>us.wili.dev.admin.controller</locations>-->
+<!--              &lt;!&ndash; 协议 &ndash;&gt;-->
+<!--              <schemes>http,https</schemes>-->
+<!--              &lt;!&ndash; 所在主机，可以为空 &ndash;&gt;-->
+<!--              <host>localhost:8030</host>-->
+<!--              &lt;!&ndash; web项目Context Path &ndash;&gt;-->
+<!--              <basePath>/api</basePath>-->
+<!--              &lt;!&ndash; 必须！要在主页显示你的API的整体信息的，相当于是标题 &ndash;&gt;-->
+<!--              <info>-->
+<!--                <title>文档搜索器</title>-->
+<!--                <version>v1</version>-->
+<!--                <description>-->
+<!--                  文档搜索器-API-->
+<!--                </description>-->
+<!--              </info>-->
+<!--              &lt;!&ndash; 模板位置，支持classpath:类型路径 &ndash;&gt;-->
+<!--              <templatePath>${project.basedir}/src/main/resources/template/strapdown.html.hbs</templatePath>-->
+<!--              &lt;!&ndash; 编译期扫描controller之后合成的API文档输出位置 &ndash;&gt;-->
+<!--              <outputPath>${project.basedir}/src/main/resources/generated/document.html</outputPath>-->
+<!--              <swaggerDirectory>${basedir}/src/main/resources/generated/swagger-ui</swaggerDirectory>-->
+
+<!--            </apiSource>-->
+<!--          </apiSources>-->
+<!--        </configuration>-->
+<!--        &lt;!&ndash; 这里很重要，简单说就是配置在maven的compile生命周期执行时触发swagger插件的generate命令 &ndash;&gt;-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <phase>compile</phase>-->
+<!--            <goals>-->
+<!--              <goal>generate</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--      </plugin>-->
+<!--    </plugins>-->
+  </build>
+</project>
