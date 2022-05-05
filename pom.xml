@@ -10,8 +10,11 @@
   <packaging>pom</packaging>
 
   <modules>
+    <!--maven自定义插件-->
     <module>maven-generate-plugin</module>
+    <!--测试插件项目-->
     <module>maven-generate-service</module>
+    <!--doc-->
     <module>maven-generate-tdoc</module>
   </modules>
 
