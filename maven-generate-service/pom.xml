@@ -25,7 +25,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -37,10 +40,16 @@
             <scope>test</scope>
         </dependency>
         <!-- swagger -->
+<!--        <dependency>-->
+<!--            <groupId>io.springfox</groupId>-->
+<!--            <artifactId>springfox-swagger2</artifactId>-->
+<!--            <version>${swagger.version}</version>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
+            <groupId>com.swagger</groupId>
+            <artifactId>maven-swagger-starter</artifactId>
+            <version>1.0.0-RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -62,6 +71,89 @@
                 <groupId>com.mojo</groupId>
                 <artifactId>maven-generate-plugin</artifactId>
                 <version>1.0.0-RELEASE</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <docencoding>UTF-8</docencoding>
+                    <failOnError>false</failOnError>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <!--用于生成swagger json 文件-->
+            <plugin>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <!-- 支持springMVC -->
+                            <springmvc>false</springmvc>
+                            <!-- 你的web项目Controller包名 -->
+                            <locations>com.example.controller</locations>
+                            <!-- 协议 -->
+                            <schemes>http,https</schemes>
+                            <!-- 所在主机，可以为空 -->
+                            <!-- <host>localhost:8030</host>-->
+                            <!-- web项目Context Path -->
+                            <basePath>/</basePath>
+                            <!-- 必须！要在主页显示你的API的整体信息的，相当于是标题 -->
+                            <info>
+                                <title>文档搜索器</title>
+                                <version>v1</version>
+                                <description>文档搜索器-API</description>
+                                <termsOfService>http://www.github.com/kongchen/swagger-maven-plugin</termsOfService>
+                                <contact>
+                                    <email>kongchen@gmail.com</email>
+                                    <name>Kong Chen</name>
+                                    <url>http://kongch.com</url>
+                                </contact>
+                                <license>
+                                    <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+                                    <name>Apache 2.0</name>
+                                </license>
+                            </info>
+                            <!-- Support classpath or file absolute path here.
+                                    1) classpath e.g: "classpath:/markdown.hbs", "classpath:/templates/hello.html"
+                                    2) file e.g: "${basedir}/src/main/resources/markdown.hbs",
+                                        "${basedir}/src/main/resources/template/hello.html" -->
+                            <!-- 模板位置，支持classpath:类型路径 -->
+                            <!-- 模板文档路径，strapdown.html.hbs可以从官网下载 -->
+                            <templatePath>${project.basedir}/src/main/resources/template/strapdown.html.hbs</templatePath>
+                            <!-- 编译期扫描controller之后合成的API文档输出位置 -->
+                            <!-- 根据模板输出的文档，可以脱离swagger使用，生成的swagger.json文档，需要配合swagger-ui使用 -->
+                            <!-- 输出文档地址及名称  -->
+                            <outputPath>${project.basedir}/target/template/document.html</outputPath>
+                            <!-- json文件输出地址，文件名称可以使用‘swaggerFileName’标签 -->
+                            <swaggerDirectory>${project.basedir}/target/template/swagger-ui</swaggerDirectory>
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <!-- 这里很重要，简单说就是配置在maven的compile生命周期执行时触发swagger插件的generate命令 -->
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
