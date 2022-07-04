@@ -16,6 +16,8 @@
     <module>maven-generate-service</module>
     <!--doc-->
     <module>maven-generate-tdoc</module>
+    <!-- swagger集成 validator   -->
+<!--    <module>maven-swagger-starter</module>-->
   </modules>
 
   <name>Maven</name>

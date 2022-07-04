@@ -8,11 +8,11 @@ import java.util.Set;
  * @Date：Created on 2022/5/18 9:20
  * @Description:Annotation全局静态类
  */
-public class SpringAnnotationConstant {
+public class AnnotationConstant {
     /**
      * 所有controller
      */
-    public static final Set<String> CONTROLLER_SET = new HashSet<>();
+    public static final Set<String> ANNOTATION_SET = new HashSet<>();
     /**
      * controller注解全名称
      */
@@ -26,9 +26,9 @@ public class SpringAnnotationConstant {
      * 初始化Spring枚举到Http方法的对应
      */
     static {
-        CONTROLLER_SET.add("Controller");
-        CONTROLLER_SET.add("RestController");
-        CONTROLLER_SET.add(REST_CONTROLLER_FULLY);
-        CONTROLLER_SET.add(CONTROLLER_FULLY);
+        ANNOTATION_SET.add("Controller");
+        ANNOTATION_SET.add("RestController");
+        ANNOTATION_SET.add(REST_CONTROLLER_FULLY);
+        ANNOTATION_SET.add(CONTROLLER_FULLY);
     }
 }

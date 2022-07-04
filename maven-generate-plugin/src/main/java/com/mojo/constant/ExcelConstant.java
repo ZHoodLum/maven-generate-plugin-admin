@@ -1,5 +1,6 @@
 package com.mojo.constant;
 
+import java.awt.*;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
@@ -51,4 +52,18 @@ public class ExcelConstant {
      */
     public static final Integer INDEX_PROVIDER_NAME = 8;
 
+
+    /**
+     * 常用集合
+     * 用于处理字段是否集合
+     */
+    public static final Set<String> MAPPING_SET = new HashSet<>();
+    /**
+     * 初始化Spring枚举到Http方法的对应
+     */
+    static {
+        MAPPING_SET.add("List");
+        MAPPING_SET.add("Set");
+        MAPPING_SET.add("Map");
+    }
 }
